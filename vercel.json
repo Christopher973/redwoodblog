@@ -1,9 +1,10 @@
 {
   "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/node",
-      "config": { "useNpm": true }
-    }
+    { "src": "web/dist/**/*", "use": "@vercel/static" },
+    { "src": "api/dist/functions/**/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/.*", "dest": "api/dist/functions/graphql.js" },
+    { "src": "/(.*)", "dest": "web/dist/$1" }
   ]
 }
